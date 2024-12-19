@@ -1,0 +1,1137 @@
+package com.sample.rules
+
+import java.util.Scanner;
+import com.sample.DroolsTest.Generator;
+
+import org.kie.api.runtime.KieRuntime
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+import javax.swing.JFrame;
+
+global JFrame frame;
+global javax.swing.JTextArea textArea;
+
+global Scanner scanner;
+
+declare enum Answers
+	Y("yes"),N("no");
+	fullAnswer : String;
+end
+
+declare Answer
+	answer : Answers;
+end
+
+declare enum Questions
+	Q1("Are you in Scotland?"),
+	Q2("Do you sleep in a double-wide?"),
+	Q3("Are you Bob or Doug McKenzie?"),
+	Q4("Do you live in the projects?"),
+	Q5("Are you a hockey fan eh?"),
+	Q6("Do you know how to access the Stargate?"),
+	Q7("Are you doing that \"ironic\" hipster thing?"),
+	Q8("Are you the designated driver?"),
+	Q9("Are you at a tailgate or fart party?"),
+	Q10("Is your wife nagging you about the beer gut?"),
+    Q11("Is Guinness on tap?"),
+    Q12("Is it summer?"),
+    Q13("Are you paying in change?"),
+    Q14("Can you speak fluent French, in Russian?"),
+    Q15("Are you having a dinner party?"),
+    Q16("Did you just graduate college?"),
+    Q17("...but did you move back with your parents?"),
+    Q18("Are you a Parrothead?"),
+    Q19("Are you trying to seem \"worldly\"?"),
+    Q20("Did you bring in a reusable grocery bag?"),
+    Q21("Are you drunk?"),
+    Q22("Do you truly love beer?"),
+    Q23("...$500 love?");
+ 
+	fullQuestion : String;
+end
+
+declare enum Results
+	R1("Brew Dog"),
+	R2("Country Club Malt Liquor"),
+	R3("Elsinore"),
+	R4("Colt 45 \n Steel Reserve"),
+	R5("Molson \n Labatt Blue"),
+    R6("Rheingold \n Esslinger's Beer"),
+    R7("Pabst Blue Ribbon"),
+    R8("O'Doul's"),
+    R10_1("Amstel \n Miller High Life \n Coors \n Budweiser"),
+    R10_2("Amstel Light \n Miller Lite \n Coors Light \n Bud Light"),
+    R11("Guinness"),
+    R13_1("Tequiza \n Modelo Especial"),
+    R13_2("Corona Extra"),
+    R14("Dos Equis"),
+    R15("Blue Moon \n Samuel Adams \n New Belgium \n Gordon Biersch"),
+    R16("R17"),
+    R17_1("Mickey's \n Old Milwaukee \n Olde English 800"),
+    R17_2("Beck's \n Rolling Rock \n Heineken"),
+    R18("Landshark"),
+    R19("Foster's \n Red Stripe \n Carlsberg"),
+    R20("Red Hook \n Sierra Nevada \n Harp Lager \n Newcastle Brown Ale \n Stella Artois"),
+    R21("Tecate \n Moosehead Lager"),
+    R22("Michelob Ultra \n Bass"),
+    R23_1("Sam Adams Utopias"),
+    R23_2("Alaskan Amber \n Ale Asylum \n Dogfish Head \n Double Diamond \n Cantillon \n Stone \n Full Sail \n Hair Dog \n Clipper City");
+
+	fullResult : String;
+end
+
+declare QuestionsList
+	qst : Questions;
+end
+
+declare FinalResult
+	result : Results;
+end
+
+declare Fact
+	question : String @key;
+	answer : String @key;
+end
+
+rule "Pierwsze pytanie"
+when
+
+    not Fact();
+    $gen : Generator();
+    
+then
+	
+	QuestionsList q = new QuestionsList();
+	q.setQst(Questions.Q1);
+	Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+  	
+    String response = $gen.askQuestion(
+    	q.getQst().getFullQuestion(), 
+    	y.getAnswer().getFullAnswer(),
+    	n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+        
+end
+
+
+rule "Pierwszy fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q1.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+	QuestionsList q = new QuestionsList();
+	q.setQst(Questions.Q2);
+	Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+  	
+    String response = $gen.askQuestion(
+    	q.getQst().getFullQuestion(), 
+    	y.getAnswer().getFullAnswer(),
+    	n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Drugi fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q2.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+	QuestionsList q = new QuestionsList();
+	q.setQst(Questions.Q3);
+	Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+  	
+    String response = $gen.askQuestion(
+    	q.getQst().getFullQuestion(), 
+    	y.getAnswer().getFullAnswer(),
+    	n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Trzeci fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q3.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+	QuestionsList q = new QuestionsList();
+	q.setQst(Questions.Q4);
+	Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+  	
+    String response = $gen.askQuestion(
+    	q.getQst().getFullQuestion(), 
+    	y.getAnswer().getFullAnswer(),
+    	n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Czwarty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q4.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+	QuestionsList q = new QuestionsList();
+	q.setQst(Questions.Q5);
+	Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+  	
+    String response = $gen.askQuestion(
+    	q.getQst().getFullQuestion(), 
+    	y.getAnswer().getFullAnswer(),
+    	n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Pi¹ty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q5.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q6);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Szósty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q6.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q7);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Siódmy fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q7.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q8);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Ósmy fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q8.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q9);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Dziewi¹ty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q9.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q11);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Dziewi¹ty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q9.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q10);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+        
+end
+
+rule "Jedenasty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q11.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q12);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Dwunasty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q12.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q14);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Dwunasty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q12.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q13);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Czternasty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q14.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q15);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Pietnasty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q15.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q16);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Szesnasty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q16.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q18);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Szesnasty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q16.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q17);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Osiemnasty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q12.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q19);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Dziewietnasty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q19.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q20);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Dwudziesty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q20.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q21);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Dwudziesty pierwszy fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q21.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q22);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Dwudziesty drugi fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q22.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    QuestionsList q = new QuestionsList();
+    q.setQst(Questions.Q23);
+    Answer y = new Answer();
+    y.setAnswer(Answers.Y);
+    Answer n = new Answer();
+    n.setAnswer(Answers.N);
+      
+    String response = $gen.askQuestion(
+        q.getQst().getFullQuestion(), 
+        y.getAnswer().getFullAnswer(),
+        n.getAnswer().getFullAnswer() 
+    );
+    
+    Fact f = new Fact();
+    f.setQuestion(q.getQst().getFullQuestion());
+    f.setAnswer(response);
+    insert(f);
+    
+end
+
+rule "Pierwszy fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q1.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+	
+	FinalResult rs = new FinalResult();
+	rs.setResult(Results.R1);
+  
+    $gen.showResult(
+    	rs.getResult().getFullResult() 
+    	);
+        
+end
+
+rule "Drugi fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q2.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+	
+	FinalResult rs = new FinalResult();
+	rs.setResult(Results.R2);
+
+    $gen.showResult(
+    	rs.getResult().getFullResult() 
+    	);
+        
+end
+
+rule "Trzeci fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q3.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+	
+	FinalResult rs = new FinalResult();
+	rs.setResult(Results.R3);
+
+    $gen.showResult(
+    	rs.getResult().getFullResult() 
+    	);
+        
+end
+
+rule "Czwarty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q4.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+	
+	FinalResult rs = new FinalResult();
+	rs.setResult(Results.R4);
+
+    $gen.showResult(
+    	rs.getResult().getFullResult() 
+    	);
+        
+end
+
+rule "Pi¹ty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q5.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+    rs.setResult(Results.R5);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+        
+end
+
+rule "Szósty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q6.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+    rs.setResult(Results.R6);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+        
+end
+
+rule "Siódmy fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q7.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+    rs.setResult(Results.R7);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+        
+end
+
+rule "Ósmy fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q8.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+    rs.setResult(Results.R8);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+        
+end
+
+
+rule "Dziesi¹ty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q10.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+    rs.setResult(Results.R10_1);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+        
+end
+
+rule "Dziesi¹ty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q10.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+    rs.setResult(Results.R10_2);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+        
+    
+end
+
+rule "Jedenasty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q11.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+    rs.setResult(Results.R11);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+        
+end
+
+rule "Trzynasty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q13.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R13_1);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+
+rule "Trzynasty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q13.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R13_2);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+ 
+ rule "Czternasty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q14.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R14);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+ 
+  rule "Pietnasty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q14.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R14);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+
+ rule "Siedemnasty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q14.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R17_1);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+ 
+  rule "Siedemnasty fakt zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q14.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R17_2);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+ 
+  rule "Osiemnasty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q18.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R18);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+ 
+  rule "Dziewietnasty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q19.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R19);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+ 
+  rule "Dwudziesty fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q20.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R20);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+ 
+  rule "Dwudziesty pierwszy fakt potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q21.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R21);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+ 
+  rule "Dwudziesty drugi fakt Zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q22.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R22);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+ 
+   rule "Dwudziesty trzeci fakt Zaprzeczony"
+when
+
+    $q : Fact( question == Questions.Q23.getFullQuestion() , answer == Answers.N.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R23_2);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
+
+    rule "Dwudziesty trzeci fakt Potwierdzony"
+when
+
+    $q : Fact( question == Questions.Q23.getFullQuestion() , answer == Answers.Y.getFullAnswer() );
+    $gen : Generator();
+    
+then
+
+    FinalResult rs = new FinalResult();
+ 	rs.setResult(Results.R23_1);
+
+    $gen.showResult(
+        rs.getResult().getFullResult() 
+        );
+ end
